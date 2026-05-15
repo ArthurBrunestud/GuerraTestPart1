@@ -33,3 +33,8 @@ DB_PASSWORD=secret123
 DB_NAME=inventario_db
 SECRET_KEY=OrfevreCastorieGoldshipDreamJourneySlSuzukaMorganArtoria
 FLASK_ENV=development
+
+
+Cuenta Login:
+DNI = 71376979
+Contra = Oskitar69
