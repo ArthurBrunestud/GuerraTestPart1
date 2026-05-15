@@ -1,0 +1,24 @@
+Para Levantar el proyecto
+
+El proyecto está configurado para ejecutarse mediante contenedores de Docker, por lo que es necesario iniciar los servicios antes de usar la aplicación web.
+
+1. Limpiar contenedores y caché (opcional)
+
+Estos comandos eliminan contenedores, volúmenes y caché de compilación anteriores para evitar conflictos:
+
+
+docker compose down -v
+docker builder prune -af
+
+
+ 2. Construir y levantar los servicios
+
+Ejecutar el siguiente comando para construir las imágenes e iniciar la aplicación:
+
+docker compose up --build
+3. Acceder a la aplicación
+
+Una vez iniciados los contenedores, la aplicación estará disponible en:
+
+http://localhost:5000
+
