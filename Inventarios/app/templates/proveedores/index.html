@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>Proveedores</h3>
+            <a href="{{ url_for('proveedores.agregar') }}" class="btn btn-primary">+ Agregar proveedor</a>
+        </div>
+
+        {% if proveedores %}
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in proveedores %}
+                <tr>
+                    <td>{{ p.nombre }}</td>
+                    <td>{{ p.telefono or '—' }}</td>
+                    <td>{{ p.direccion or '—' }}</td>
+                    <td>
+                        {% if p.activo %}
+                            <span class="badge bg-success">Activo</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Inactivo</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('proveedores.editar', id=p.id) }}"
+                           class="btn btn-sm btn-outline-secondary me-1">Editar</a>
+
+                        {% if p.activo %}
+                        <form method="POST" action="{{ url_for('proveedores.desactivar', id=p.id) }}"
+                              class="d-inline"
+                              onsubmit="return confirm('¿Desactivar a {{ p.nombre }}?')">
+                            {{ form.hidden_tag() }}
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Desactivar</button>
+                        </form>
+                        {% else %}
+                        <form method="POST" action="{{ url_for('proveedores.activar', id=p.id) }}"
+                              class="d-inline">
+                            {{ form.hidden_tag() }}
+                            <button type="submit" class="btn btn-sm btn-outline-success">Activar</button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p class="text-muted">No hay proveedores registrados.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+<!-- app/templates/inventario/index.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3>Movimientos de stock</h3>
+            <a href="{{ url_for('inventario.registrar') }}" class="btn btn-primary">+ Registrar movimiento</a>
+        </div>
+
+        {% if movimientos %}
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Producto</th>
+                    <th>Tipo</th>
+                    <th>Cantidad</th>
+                    <th>Stock resultante</th>
+                    <th>Proveedor</th>
+                    <th>Notas</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in movimientos %}
+                <tr>
+                    <td>{{ m.fecha.strftime('%d/%m/%Y %H:%M') }}</td>
+                    <td>{{ m.producto.nombre }}</td>
+                    <td>
+                        {% if m.tipo == 'entrada' %}
+                            <span class="badge bg-success">Entrada</span>
+                        {% else %}
+                            <span class="badge bg-danger">Salida</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ m.cantidad }}</td>
+                    <td>{{ m.stock_despues }}</td>
+                    <td>{{ m.proveedor.nombre if m.proveedor else '—' }}</td>
+                    <td>{{ m.notas or '—' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <p class="text-muted">No hay movimientos registrados.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

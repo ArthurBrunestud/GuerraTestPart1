@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h3 class="mb-4">Editar producto: {{ producto.nombre }}</h3>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.nombre.label(class='form-label') }}
+                {{ form.nombre(class='form-control') }}
+            </div>
+            <div class="mb-3">
+                {{ form.descripcion.label(class='form-label') }}
+                {{ form.descripcion(class='form-control', rows=3) }}
+            </div>
+            <div class="mb-3">
+                {{ form.categoria.label(class='form-label') }}
+                {{ form.categoria(class='form-select') }}
+            </div>
+            <div class="mb-3">
+                {{ form.marca.label(class='form-label') }}
+                {{ form.marca(class='form-control') }}
+            </div>
+            <div class="row">
+                <div class="col mb-3">
+                    {{ form.precio_compra.label(class='form-label') }}
+                    {{ form.precio_compra(class='form-control') }}
+                </div>
+                <div class="col mb-3">
+                    {{ form.moneda.label(class='form-label') }}
+                    {{ form.moneda(class='form-select') }}
+                </div>
+            </div>
+            <div class="mb-3">
+                {{ form.stock.label(class='form-label') }}
+                {{ form.stock(class='form-control') }}
+            </div>
+            <div class="mb-3">
+                {{ form.imagen(class='form-control', accept='image/jpeg,image/png,image/webp') }}
+                {% if producto.imagen_url %}
+                    <div class="mb-2">
+                        <img src="{{ url_for('static', filename='uploads/' + producto.imagen_url) }}"
+                             width="80" height="80" style="object-fit: cover; border-radius: 6px;">
+                        <small class="text-muted ms-2">Imagen actual — sube una nueva para reemplazarla.</small>
+                    </div>
+                {% endif %}
+                {{ form.imagen(class='form-control') }}
+            </div>
+            {{ form.submit(class='btn btn-primary w-100') }}
+        </form>
+        <p class="mt-3 text-center">
+            <a href="{{ url_for('productos.listar') }}">← Volver a productos</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
