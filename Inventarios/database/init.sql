@@ -1,6 +1,3 @@
--- ============================================================
--- TABLAS MAESTRAS (sin cambios)
--- ============================================================
 
 CREATE TABLE mae_trabajadores (
     id            SERIAL PRIMARY KEY,
