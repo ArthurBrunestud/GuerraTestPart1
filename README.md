@@ -1,40 +1,63 @@
-Para Levantar el proyecto
-1. Ir a la carpeta del proyecto
+# Sistema de Gestión de Inventario
 
-Se debe de hacer un cd a la carpeta inventarios
+Módulo web de gestión interna de inventario desarrollado con Flask y PostgreSQL,
+desplegado mediante Docker Compose.
 
-El proyecto está configurado para ejecutarse mediante contenedores de Docker, por lo que es necesario iniciar los servicios antes de usar la aplicación web.
+## Requisitos previos
 
-3. Limpiar contenedores y caché (opcional)
+- Docker Desktop instalado y corriendo
+- Git para clonar el repositorio
+- Puerto 5000 y 5432 disponibles en la máquina
 
-Estos comandos eliminan contenedores, volúmenes y caché de compilación anteriores para evitar conflictos:
+## Pasos para levantar el proyecto
 
+### 1. Clonar el repositorio
 
-docker compose down -v
-docker builder prune -af
+git clone <url-del-repositorio>
+cd inventarios
 
+### 2. Crear el archivo .env(opcional)
 
- 3. Construir y levantar los servicios
+Crear un archivo llamado `.env` en la raíz del proyecto con el siguiente contenido:
 
-Ejecutar el siguiente comando para construir las imágenes e iniciar la aplicación:
-
-docker compose up --build
-4. Acceder a la aplicación
-
-Una vez iniciados los contenedores, la aplicación estará disponible en:
-
-http://localhost:5000
-
-Posdata:
-En caso no se clone el archivo .env por medidas de seguridad se debe de crear en la raiz del proyecto osea la carpeta inventarios.
-Contenido del .env:
 DB_USER=admin
 DB_PASSWORD=secret123
 DB_NAME=inventario_db
 SECRET_KEY=OrfevreCastorieGoldshipDreamJourneySlSuzukaMorganArtoria
 FLASK_ENV=development
 
+Esto es en caso no se halla clonado del .env.
+### 3. Limpiar contenedores anteriores (opcional)
 
-Cuenta Login:
-DNI = 71376979
-Contra = Oskitar69
+Ejecutar solo si hubo una ejecución previa y se quiere partir desde cero:
+
+docker compose down -v
+docker builder prune -af
+
+### 4. Construir y levantar los servicios
+
+docker compose up --build
+
+### 5. Acceder a la aplicación
+
+http://localhost:5000
+
+## Credenciales de acceso
+
+| Campo      | Valor       |
+|------------|-------------|
+| DNI        | 71376979    |
+| Contraseña | Oskitar69   |
+
+El usuario está precargado en la base de datos mediante el script `init.sql`.
+La contraseña se almacena hasheada internamente, estas credenciales son
+solo para facilitar la evaluación del proyecto.
+
+
+## Notas
+
+- La base de datos se inicializa automáticamente con las tablas y el usuario
+  de prueba la primera vez que se levanta el contenedor.
+- Las imágenes de productos se almacenan en `app/static/uploads/` y persisten
+  entre reinicios gracias al volumen de Docker.
+- El sistema está diseñado para uso en red local, no requiere conexión a internet.
