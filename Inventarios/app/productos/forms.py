@@ -21,7 +21,7 @@ class ProductoForm(FlaskForm):
     stock         = IntegerField('Cantidad en stock', validators=[DataRequired(), NumberRange(min=0, max=100000)])
     imagen        = FileField('Imagen del producto', validators=[
                         Optional(),
-                        FileAllowed(['jpg', 'jpeg', 'png', 'webp'], 'Solo imágenes.')
+                        FileAllowed(['jpg', 'jpeg', 'png'], 'Solo imágenes.')
                     ])
     submit        = SubmitField('Guardar producto')
 
