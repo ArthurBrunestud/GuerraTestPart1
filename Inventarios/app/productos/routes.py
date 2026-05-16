@@ -39,10 +39,7 @@ def tamanio_valido(archivo):
 
 
 def contenido_valido(archivo):
-    """
-    Usa Pillow para decodificar el archivo completo.
-    Detecta scripts o basura disfrazados con header de imagen válido.
-    """
+
     try:
         datos = archivo.read()
         archivo.seek(0)
